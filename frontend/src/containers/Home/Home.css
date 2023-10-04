@@ -1,0 +1,44 @@
+.home-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+.home-welcome img {
+  width: 65px;
+  border-radius: 50%;
+}
+.home-welcome p {
+  color: var(--input-color);
+}
+.home-welcome button {
+  background-color: #cccccc;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 4px 6px;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+.home-welcome button svg {
+  width: 15px;
+  height: 15px;
+}
+
+@media only screen and (min-width: 650px) {
+  .home-welcome img {
+    width: 70px;
+  }
+  .home-welcome button {
+    top: 10px;
+    right: 10px;
+    padding: 8px 10px;
+  }
+  .home-welcome button svg {
+    width: 20px;
+    height: 20px;
+  }
+}

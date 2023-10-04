@@ -1,0 +1,23 @@
+.select-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+}
+.list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  color: grey;
+}
+
+.list li {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 10px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  font-size: 12px;
+  align-items: center;
+}

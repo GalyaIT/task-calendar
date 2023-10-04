@@ -1,0 +1,27 @@
+.select-button {
+  background-color: var(--bg-color-checked);
+  width: 100px;
+  padding: 5px 15px;
+  outline: none;
+  border: 1px solid var(--border-color);
+  border-radius: 2px;
+  transition-duration: 0.3s;
+}
+
+.select-button:hover:not(.active) {
+  background-color: var(--bg-color-li);
+  border: 1px solid var(--border-color);
+  color: #ffffff;
+}
+.active {
+  background-color: transparent;
+  color: var(--check-color);
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+}
+
+@media only screen and (min-width: 1150px) {
+  .select-buttons {
+    gap: 20px;
+  }
+}
