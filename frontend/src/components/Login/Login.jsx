@@ -6,13 +6,15 @@ import jwt_decode from "jwt-decode";
 import { fetchUser } from "../../utils/FetchUser";
 import "./Login.css";
 
+import {client} from '../../client'
+
 const Login = () => {
   const user = fetchUser();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
-      navigate("/");
+      navigate("/")
     }
   }, []);
 
@@ -28,8 +30,11 @@ const Login = () => {
       userName: name,
       image: picture,
     };
-    navigate("/");
+    client.createIfNotExists(doc).then(() => {
+      navigate('/', { replace: true });
+    });
   };
+
   return (
     <div className='todo-login'>
       <div className='todo-bg app__bg'>
