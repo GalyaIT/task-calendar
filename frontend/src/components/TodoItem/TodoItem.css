@@ -105,7 +105,7 @@ label {
 }
 .warning-box p {
   margin-bottom: 20px;
-  color: var(--warning-color);
+  color: var(--warning-color) !important;
 }
 .warning-box-buttons {
   display: flex;

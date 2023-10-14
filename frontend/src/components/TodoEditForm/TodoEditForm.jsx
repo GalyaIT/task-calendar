@@ -16,7 +16,7 @@ const TodoEditForm = ({ onSubmit, todo }) => {
         onChange={(e) => setNewItem(e.target.value)}
         type='text'
         id='item'
-        currentTime={todo.currentTime}
+        // currentTime={todo.currentTime}
       />
       <button className='btn'>Edit</button>
     </form>

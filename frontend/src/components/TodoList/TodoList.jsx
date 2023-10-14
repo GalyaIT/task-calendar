@@ -38,6 +38,7 @@ const TodoList = ({
       return 0;
     });
 
+    
   const taskList = currentTodos?.filter(FILTER_MAP[filter]).map((todo) => {
     if (todo.edited) {
       return <TodoEditForm key={todo._id} onSubmit={editTask} todo={todo} />;

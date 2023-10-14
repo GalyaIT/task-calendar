@@ -18,8 +18,7 @@ export const urlFor = (source) => builder.image(source);
 export const getUser = async (id) => {
   const query = userQuery(id);
   try {
-    const data = await client.fetch(query);
-    console.log(data);
+    const data = await client.fetch(query); 
     return data;
   } catch (error) {
     console.log(error.msg);

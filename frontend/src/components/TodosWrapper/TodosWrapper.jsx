@@ -15,22 +15,22 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
   let year = startDate.getFullYear();
   let currentDate = `${day}-${month}-${year}`;
 
-  let hour = ("0" + startDate.getHours()).slice(-2);
-  let minutes = ("0" + startDate.getMinutes()).slice(-2);
-  let currentTime = `${hour}:${minutes}`;
+  // let hour = ("0" + startDate.getHours()).slice(-2);
+  // let minutes = ("0" + startDate.getMinutes()).slice(-2);
+  // let currentTime = `${hour}:${minutes}`;
 
   const navigate = useNavigate();
 
 //create task
 
-  const addTodo = (title) => {
+  const addTodo = (title) => {  
     const doc = {
       _type: 'task',
       title,
       userId: userId,
       completed: false,
       currentDate: currentDate,
-      createdAt: startDate
+      createdAt: new Date(),
     };
     client.create(doc).then(() => {
       getTasks(userId).then((data) => {
@@ -89,14 +89,14 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
   }
 
   //delete task
-  const deleteTodo = (id) => {
-    setTodos(
-      todos.filter(todo => todo._id !== id)
-    )
+  const deleteTodo = (id) => {  
     client.delete(id)
       .then(() => {
         console.log("Deleted");
       });
+      setTodos(
+        todos.filter(todo => todo._id !== id)
+      )
     navigate("/");
   }
 
