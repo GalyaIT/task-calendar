@@ -9,33 +9,29 @@ import { client, getTasks } from '../../client';
 
 const TodosWrapper = ({ todos, setTodos, userId }) => {
   const [startDate, setStartDate] = useState(new Date());
+  const currentDate=startDate.toISOString().split('T')[0]; 
 
-  let day = ("0" + startDate.getDate()).slice(-2);
-  let month = ("0" + (startDate.getMonth() + 1)).slice(-2);
-  let year = startDate.getFullYear();
-  let currentDate = `${day}-${month}-${year}`;
-
-  // let hour = ("0" + startDate.getHours()).slice(-2);
-  // let minutes = ("0" + startDate.getMinutes()).slice(-2);
-  // let currentTime = `${hour}:${minutes}`;
 
   const navigate = useNavigate();
 
 //create task
 
-  const addTodo = (title) => {  
+  const addTodo = (title) => { 
+    const currentTime=new Date().toTimeString().split(' ')[0];    
+  
     const doc = {
       _type: 'task',
       title,
       userId: userId,
       completed: false,
       currentDate: currentDate,
-      createdAt: new Date(),
+      currentTime: currentTime,
     };
+
     client.create(doc).then(() => {
       getTasks(userId).then((data) => {
         setTodos(data)
-      })
+      })     
       navigate('/');
     });
   };
@@ -101,7 +97,7 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
   }
 
   function addDays() {
-    const arr =todos.map(task=>new Date(task.createdAt));
+    const arr =todos.map(task=>new Date(task.currentDate));    
     return arr
   }
   

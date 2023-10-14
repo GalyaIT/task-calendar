@@ -10,7 +10,7 @@ export const userQuery = (userId) => {
        title, 
        completed,
        currentDate,       
-       createdAt     
+       currentTime    
     }`;
 
     return query;

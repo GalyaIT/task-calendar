@@ -19,14 +19,12 @@ const Home = () => {
 
   useEffect(() => {
    getUser(userId).then((data)=>{
-    console.log(data[0]);
     setUser(data[0]);
    });   
   }, [userId]);
 
   useEffect(() => { 
     getTasks(userId).then((data)=>{
-     console.log(data);
      setTodos(data)
     });   
    },[]);

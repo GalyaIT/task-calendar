@@ -20,18 +20,18 @@ export default {
         },       
         {
             name: 'currentDate',
-            title: 'currentDate',
+            title: 'CurrentDate',
             type: 'string',
             options: {
                 dateFormat: 'YYYY-MM-DD',                
               }
           },         
           {
-            name: 'createdAt',
-            title: 'CreatedAt',
-            type: 'datetime',
+            name: 'currentTime',
+            title: 'CurrentTime',
+            type: 'string',
             options: {
-                dateFormat: 'YYYY-MM-DD',                
+                timeFormat: 'HH:mm',                
               }
           },      
     ]
