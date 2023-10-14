@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { TodosWrapper, SelectThemeBar } from "../../components";
+import { TodosWrapper, SelectThemeBar, Timer } from "../../components";
 import { fetchUser } from "../../utils/FetchUser";
 import { MdLogout } from "react-icons/md";
 import "./Home.css";
 import { getUser, getTasks } from '../../client';
+
 
 
 const Home = () => {
@@ -44,7 +45,8 @@ const Home = () => {
         <button onClick={logout}>
           <MdLogout color='#a31919' />
         </button>
-      </div>  
+      </div> 
+      <Timer/> 
       <TodosWrapper todos={todos} setTodos={setTodos} userId={user?._id} />
     </>
   );

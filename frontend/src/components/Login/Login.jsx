@@ -41,7 +41,7 @@ const Login = () => {
     <div className='todo-login'>
       <div className='todo-bg app__bg'>
         <h1 style={{ marginBottom: "20px", color: "white" }}>
-          What's the plan for today?
+        What's the plan for the day?
         </h1>
         <GoogleLogin
           render={(renderProps) => (
