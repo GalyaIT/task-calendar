@@ -6,7 +6,7 @@ const TodoEditForm = ({ onSubmit, todo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newItem === "" || /^\s*$/.test(newItem)) return;
-    onSubmit(newItem, todo.id);
+    onSubmit(newItem, todo._id);
   };
 
   return (

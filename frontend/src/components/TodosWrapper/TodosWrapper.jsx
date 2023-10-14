@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TodoForm from "../TodoForm/TodoForm";
 import TodoList from "../TodoList/TodoList";
 import "./TodoWrapper.css";
-import {client, getTasks} from '../../client';
+import { client, getTasks } from '../../client';
 
 const TodosWrapper = ({ todos, setTodos, userId }) => {
   const [startDate, setStartDate] = useState(new Date());
@@ -21,66 +21,78 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
 
   const navigate = useNavigate();
 
-  const addTodo = (title) => {    
-      const doc = {
-        _type: 'task',
-        title,        
-        userId: userId,  
-        completed:false,         
-        currentDate: currentDate,       
-        createdAt: startDate    
-      };
-    client.create(doc).then(() => {       
-       getTasks(userId).then((data)=>{
-        setTodos(data)
-       })
-      navigate('/');
-      });
+  const addTodo = (title) => {
+    const doc = {
+      _type: 'task',
+      title,
+      userId: userId,
+      completed: false,
+      currentDate: currentDate,
+      createdAt: startDate
     };
+    client.create(doc).then(() => {
+      getTasks(userId).then((data) => {
+        setTodos(data)
+      })
+      navigate('/');
+    });
+  };
 
-    const toggleTodo = async(id, completed) => {
-      setTodos(
-        todos.map((todo) =>
-          todo._id === id ? { ...todo, completed: !todo.completed } : todo
-        )
-      );
-     await client.patch(id)
+  const toggleTodo = async (id, completed) => {
+    setTodos(
+      todos.map((todo) =>
+        todo._id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+    await client.patch(id)
       .set({
-        completed:!completed
+        completed: !completed
       })
       .commit()
       .then(() => {
-        console.log('updated');      
+        console.log('updated');
         navigate("/");
-      });    
-    }
+      });
+  }
 
   const editTodo = (id) => {
     setTodos(
-      todos.map((todo) =>
-        todo.id === id
-          ? {
-              ...todo,
-              edited: !todo.edited,
-            }
-          : todo
-      )
-    );
-  };
+      todos.map((todo) => todo._id === id ? {
+        ...todo, edited: !todo.edited
+      } : todo)
+    )
+  }
 
-  const editTask = (title, id) => {
+  const editTask = async (title, id) => {
     setTodos(
       todos.map((todo) =>
-        todo.id === id
-          ? { ...todo, title, edited: !todo.edited, currentTime: currentTime }
-          : todo
+        todo._id === id ? { ...todo, title, edited: !todo.edited } : todo
       )
     );
-  };
 
+    const doc = {
+      _type: 'task',
+      title: title,
+    };
+    await client.patch(id)
+      .set(doc)
+      .commit()
+      .then(() => {
+        console.log('updated');
+        navigate("/");
+      });
+  }
   const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
+    setTodos(
+      todos.filter(todo => todo._id !== id)
+    )
+    client.delete(id)
+      .then(() => {
+        console.log("Deleted");
+      });
+    navigate("/");
+  }
+
 
   return (
     <div className='todo__app-wrapper'>
@@ -104,7 +116,6 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
         editTodo={editTodo}
         editTask={editTask}
         currentDate={currentDate}
-        currentTime={currentTime}
       />
     </div>
   );
