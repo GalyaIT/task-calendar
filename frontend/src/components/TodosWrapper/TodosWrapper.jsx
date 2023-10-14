@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import {useNavigate} from 'react-router-dom'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { v4 as uuidv4 } from "uuid";
 import TodoForm from "../TodoForm/TodoForm";
 import TodoList from "../TodoList/TodoList";
 import "./TodoWrapper.css";
+import {client, getTasks} from '../../client';
 
-const TodosWrapper = ({ todos, setTodos }) => {
+const TodosWrapper = ({ todos, setTodos, userId }) => {
   const [startDate, setStartDate] = useState(new Date());
 
   let day = ("0" + startDate.getDate()).slice(-2);
@@ -18,19 +19,24 @@ const TodosWrapper = ({ todos, setTodos }) => {
   let minutes = ("0" + startDate.getMinutes()).slice(-2);
   let currentTime = `${hour}:${minutes}`;
 
-  const addTodo = (title) => {
-    setTodos([
-      ...todos,
-      {
-        id: uuidv4(),
-        title,
-        completed: false,
-        edited: false,
-        currentDate: currentDate,
-        currentTime: currentTime,
-      },
-    ]);
-  };
+  const navigate = useNavigate();
+
+  const addTodo = (title) => {    
+      const doc = {
+        _type: 'task',
+        title,        
+        userId: userId,  
+        completed:false,         
+        currentDate: currentDate,       
+        createdAt: startDate    
+      };
+    client.create(doc).then(() => {       
+       getTasks(userId).then((data)=>{
+        setTodos(data)
+       })
+      navigate('/');
+      });
+    };
 
   const toggleTodo = (id) => {
     setTodos(
