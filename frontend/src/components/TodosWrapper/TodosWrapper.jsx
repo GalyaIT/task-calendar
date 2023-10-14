@@ -21,6 +21,8 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
 
   const navigate = useNavigate();
 
+//create task
+
   const addTodo = (title) => {
     const doc = {
       _type: 'task',
@@ -38,6 +40,7 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
     });
   };
 
+//toggle task
   const toggleTodo = async (id, completed) => {
     setTodos(
       todos.map((todo) =>
@@ -54,6 +57,8 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
         navigate("/");
       });
   }
+
+//edit task
 
   const editTodo = (id) => {
     setTodos(
@@ -82,6 +87,8 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
         navigate("/");
       });
   }
+
+  //delete task
   const deleteTodo = (id) => {
     setTodos(
       todos.filter(todo => todo._id !== id)
@@ -93,10 +100,21 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
     navigate("/");
   }
 
+  function addDays() {
+    const arr =todos.map(task=>new Date(task.createdAt));
+    return arr
+  }
+  
+  const highlightBusy = [
+    {
+      "react-datepicker__day--highlighted-custom-1": 
+        addDays()  
+    },
+  ]  
 
   return (
     <div className='todo__app-wrapper'>
-      <h1 style={{ marginBottom: "20px" }}>What's the plan for today?</h1>
+      <h1 style={{ marginBottom: "20px" }}>What's the plan for the day?<span>😀</span></h1>
       <div className='datePicker-wrapper'>
         <DatePicker
           dateFormat='dd/MM/yyyy'
@@ -104,7 +122,8 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
           onChange={(date) => setStartDate(date)}
           timeFormat='HH:mm'
           timeIntervals={15}
-          showTimeSelect
+          // showTimeSelect
+          highlightDates={highlightBusy}
         />
       </div>
       <TodoForm onSubmit={addTodo} />
