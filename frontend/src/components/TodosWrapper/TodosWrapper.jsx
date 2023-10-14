@@ -117,6 +117,7 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
       <h1 style={{ marginBottom: "20px" }}>What's the plan for the day?<span>😀</span></h1>
       <div className='datePicker-wrapper'>
         <DatePicker
+          showIcon  
           dateFormat='dd/MM/yyyy'
           selected={startDate}
           onChange={(date) => setStartDate(date)}

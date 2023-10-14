@@ -30,7 +30,7 @@
 .react-datepicker__input-container input {
   background-color: #b3afaf;
   width: 50%;
-  padding: 5px 10px;
+  /* padding: 5px 10px; */
   text-align: center;
   outline: none;
   border: none;
@@ -92,6 +92,22 @@
   background-color: rgb(98, 127, 151);
   color: white;
 }
+.react-datepicker__day--highlighted-custom-1{
+  background-color: rgba(196, 72, 56, 0.658) !important;
+    border-radius: 7px;
+    color:black !important;
+  }
+  .react-datepicker__input-container .react-datepicker__calendar-icon{
+    padding: 0 !important;
+    position:absolute;
+    top:5px;
+    left:56px; 
+  }
+
+  .react-datepicker__day--weekend{
+  background-color: rgba(199, 153, 126, 0.363);
+  border-radius: 7px;
+  }
 
 .react-datepicker__day--selected:hover,
 .react-datepicker__day--in-selecting-range:hover,
