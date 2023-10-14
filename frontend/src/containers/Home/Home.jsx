@@ -4,47 +4,48 @@ import { TodosWrapper, SelectThemeBar } from "../../components";
 import { fetchUser } from "../../utils/FetchUser";
 import { MdLogout } from "react-icons/md";
 import "./Home.css";
+import { getUser, getTasks } from '../../client';
+
 
 const Home = () => {
-  const [todos, setTodos] = useState(() => {
-    const localValue = localStorage.getItem("ITEMS");
-    if (localValue == null) return [];
-    return JSON.parse(localValue);
-  });
+  const [user, setUser] = useState(null);
+  const[todos, setTodos]=useState([]);
+
   const navigate = useNavigate();
-  const user = fetchUser();
-  console.log(user);
+  const userInfo = fetchUser();
+  const userId = userInfo?._id;
+
 
   useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, []);
+   getUser(userId).then((data)=>{
+    console.log(data[0]);
+    setUser(data[0]);
+   });   
+  }, [userId]);
 
-  useEffect(() => {
-    localStorage.setItem("ITEMS", JSON.stringify(todos));
-  }, [todos]);
+  useEffect(() => { 
+    getTasks(userId).then((data)=>{
+     console.log(data);
+     setTodos(data)
+    });   
+   },[]);
 
-  const logout = () => {
-    // localStorage.clear();
-    localStorage.removeItem("user");
+   const logout = () => {
+    localStorage.clear();   
     navigate("/login");
   };
+
   return (
-    <>
+    <>     
       <SelectThemeBar />
       <div className='home-welcome'>
-        {user ? (
-          <>
-            <img src={user.picture} alt='' />
-            <p>Hello, {user.name}</p>
-          </>
-        ) : null}
+        <img src={user?.image} alt='userImage' />
+        <p>Hello, {user?.userName}</p>
         <button onClick={logout}>
           <MdLogout color='#a31919' />
         </button>
-      </div>
-      <TodosWrapper todos={todos} setTodos={setTodos} />
+      </div>  
+      <TodosWrapper todos={todos} setTodos={setTodos} userId={user?._id} />
     </>
   );
 };

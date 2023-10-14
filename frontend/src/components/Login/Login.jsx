@@ -19,22 +19,24 @@ const Login = () => {
   }, []);
 
   const responseGoogle = (response) => {
-    const decoded = jwt_decode(response.credential);
-
-    localStorage.setItem("user", JSON.stringify(decoded));
+    console.log(response);
+    const decoded = jwt_decode(response.credential)
+    console.log(decoded)
+    const localUser ={userName:decoded.name, image:decoded.picture, _id:decoded.sub }
+    localStorage.setItem('user', JSON.stringify(localUser));
 
     const { name, picture, sub } = decoded;
     const doc = {
       _id: sub,
-      _type: "user",
+      _type: 'user',
       userName: name,
-      image: picture,
-    };
+      image: picture
+    }
+    
     client.createIfNotExists(doc).then(() => {
       navigate('/', { replace: true });
     });
   };
-
   return (
     <div className='todo-login'>
       <div className='todo-bg app__bg'>
