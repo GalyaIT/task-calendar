@@ -40,13 +40,13 @@ const TodoList = ({
 
   const taskList = currentTodos?.filter(FILTER_MAP[filter]).map((todo) => {
     if (todo.edited) {
-      return <TodoEditForm key={todo.id} onSubmit={editTask} todo={todo} />;
+      return <TodoEditForm key={todo._id} onSubmit={editTask} todo={todo} />;
     } else {
       return (
         <TodoItem
           {...todo}
-          id={todo.id}
-          key={todo.id}
+          id={todo._id}
+          key={todo._id}
           toggleTodo={toggleTodo}
           deleteTodo={deleteTodo}
           editTodo={editTodo}

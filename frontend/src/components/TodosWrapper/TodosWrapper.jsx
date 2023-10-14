@@ -38,13 +38,22 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
       });
     };
 
-  const toggleTodo = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
-  };
+    const toggleTodo = async(id, completed) => {
+      setTodos(
+        todos.map((todo) =>
+          todo._id === id ? { ...todo, completed: !todo.completed } : todo
+        )
+      );
+     await client.patch(id)
+      .set({
+        completed:!completed
+      })
+      .commit()
+      .then(() => {
+        console.log('updated');      
+        navigate("/");
+      });    
+    }
 
   const editTodo = (id) => {
     setTodos(

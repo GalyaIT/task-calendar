@@ -9,8 +9,7 @@ const TodoItem = ({
   title,
   toggleTodo,
   deleteTodo,
-  editTodo,
-  currentTime,
+  editTodo,  
 }) => {
   const [value, setValue] = useState(false);
 
@@ -29,9 +28,8 @@ const TodoItem = ({
           <input
             type='checkbox'
             checked={completed}
-            onChange={(e) => toggleTodo(id)}
-          />
-          <span>{currentTime}</span>
+            onChange={(e) => toggleTodo(id, completed)}
+          />          
           <span>{title} </span>
         </label>
 
