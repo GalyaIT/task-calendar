@@ -10,6 +10,7 @@ import { client, getTasks } from '../../client';
 const TodosWrapper = ({ todos, setTodos, userId }) => {
   const [startDate, setStartDate] = useState(new Date());
   const currentDate=startDate.toISOString().split('T')[0]; 
+  const[isAdded, setIsAdded]=useState(false);
 
 
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
 //create task
 
   const addTodo = (title) => { 
-    const currentTime=new Date().toTimeString().split(' ')[0];    
+    const currentTime=new Date().toTimeString().split(' ')[0];  
   
     const doc = {
       _type: 'task',
@@ -27,23 +28,24 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
       currentDate: currentDate,
       currentTime: currentTime,
     };
-
-    client.create(doc).then(() => {
+      
+     client.create(doc).then(() => {
       getTasks(userId).then((data) => {
         setTodos(data)
-      })     
-      navigate('/');
+      })   
     });
+    setIsAdded(true);
+    navigate('/')
   };
 
 //toggle task
-  const toggleTodo = async (id, completed) => {
+  const toggleTodo =  (id, completed) => {
     setTodos(
       todos.map((todo) =>
         todo._id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
-    await client.patch(id)
+    client.patch(id)
       .set({
         completed: !completed
       })
@@ -64,7 +66,7 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
     )
   }
 
-  const editTask = async (title, id) => {
+  const editTask =  (title, id) => {
     setTodos(
       todos.map((todo) =>
         todo._id === id ? { ...todo, title, edited: !todo.edited } : todo
@@ -75,7 +77,7 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
       _type: 'task',
       title: title,
     };
-    await client.patch(id)
+     client.patch(id)
       .set(doc)
       .commit()
       .then(() => {
@@ -132,6 +134,8 @@ const TodosWrapper = ({ todos, setTodos, userId }) => {
         editTodo={editTodo}
         editTask={editTask}
         currentDate={currentDate}
+        isAdded={isAdded}
+        setIsAdded={setIsAdded}
       />
     </div>
   );

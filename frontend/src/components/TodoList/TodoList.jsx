@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TodoItem from "../TodoItem/TodoItem";
 import TodoEditForm from "../TodoEditForm/TodoEditForm";
 import FilterButton from "../FilterButton/FilterButton";
@@ -11,6 +11,8 @@ const TodoList = ({
   editTodo,
   editTask,
   currentDate,
+  isAdded,
+  setIsAdded
 }) => {
   const [filter, setFilter] = useState("All");
 
@@ -56,6 +58,14 @@ const TodoList = ({
       );
     }
   });
+  useEffect(()=>{ 
+   
+    if(filter==='Completed'&& isAdded){  
+    setFilter("All")
+    setIsAdded(false);
+    }    
+  }, [filter, isAdded, setIsAdded])
+  
 
   return (
     <>
