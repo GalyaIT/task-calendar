@@ -5,6 +5,7 @@
 }
 .select-theme-heading {
   color: var(--headings-color);
+  font-weight: 500;
 }
 .select-theme-div {
   align-self: center;

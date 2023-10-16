@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import {PiCloudArrowUpBold} from 'react-icons/pi';
 import { TodosWrapper, SelectThemeBar, Timer } from "../../components";
 import { fetchUser } from "../../utils/FetchUser";
 import { MdLogout } from "react-icons/md";
@@ -38,6 +39,7 @@ const Home = () => {
     <>     
       <SelectThemeBar />
       <div className='home-welcome'>
+      <a href="https://www.sinoptik.bg/plovdiv-bulgaria-100728193?search" target="blank">Check the Weather in Sinoptik.bg  <PiCloudArrowUpBold  value={{ size: '50px' }} /></a>
         <img src={user?.image} alt='userImage' />
         <p>Hello, {user?.userName}</p>
         <button onClick={logout}>
