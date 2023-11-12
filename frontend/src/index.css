@@ -12,12 +12,27 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
   background: var(--bg-color);
+  overflow-y: scroll;
+  -ms-overflow-style:none;
 }
-.hide-scrollbar::-webkit-scrollbar {
+
+::-webkit-scrollbar {
   display: none;
 }
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* body {
+  -ms-overflow-style:none;
+} */
+
+
+/* .hide-scrollbar::-webkit-scrollbar {
+  display: none;
+} */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -30,7 +45,7 @@ body[data-theme="light-theme"] {
   --headings-color: #000000;
   --bg-color-form-btn: rgb(138, 134, 129);
   --bg-color-li: #aca59e;
-  --border-color: #606061;
+  --border-color: #fdd2f6;
   --bg-color-checked: rgb(138, 134, 129);
   --checkedspan-color: #cccccc;
   --input-color: #000000;

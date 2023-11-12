@@ -4,6 +4,7 @@
   padding: 5px 15px;
   outline: none;
   border: 1px solid var(--border-color);
+  color:var(--input-color);
   border-radius: 2px;
   transition-duration: 0.3s;
 }
